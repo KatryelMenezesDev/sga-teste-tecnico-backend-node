@@ -27,7 +27,7 @@
     "docker:build": "docker-compose up --build",
     "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
-    "docker:restart": "docker-compose down && docker-compose up"
+    "docker:restart": "docker-compose down && docker-compose up -d"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
