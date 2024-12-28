@@ -7,7 +7,6 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-    @IsString()
     @IsNotEmpty({ message: 'O Nome é obrigatório' })
     @MinLength(3, { message: 'O Nome deve ter no mínimo 3 caracteres' })
     @MaxLength(256, { message: 'O Nome deve ter no máximo 256 caracteres' })
@@ -25,6 +24,4 @@ export class CreateUserDto {
     @MinLength(8, { message: 'A Senha deve ter no mínimo 8 caracteres' })
     @MaxLength(256, { message: 'A Senha deve ter no máximo 256 caracteres' })
     password: string;
-
-    creat_att: Date;
 }
