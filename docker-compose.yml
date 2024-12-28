@@ -15,6 +15,7 @@ services:
     networks:
       custom_network:
         ipv4_address: 172.20.0.2
+    command: npm run prisma:studio
 
   postgres:
     image: postgres:latest
