@@ -1,4 +1,18 @@
 services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - postgres
+      - redis
+
   postgres:
     image: postgres:latest
     container_name: postgres
