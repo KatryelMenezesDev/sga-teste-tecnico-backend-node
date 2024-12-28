@@ -3,7 +3,7 @@ import { User } from '@prisma/client';
 export class UserEntity implements User {
     id: string;
     name: string;
-    login: string;
+    email: string;
     password: string;
     creat_att: Date;
     update_att: Date;

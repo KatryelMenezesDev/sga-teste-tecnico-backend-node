@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, MinLength, MaxLength } from 'class-validator';
+import {
+    IsNotEmpty,
+    IsString,
+    MinLength,
+    MaxLength,
+    IsEmail,
+} from 'class-validator';
 
 export class CreateUserDto {
     @IsString()
@@ -8,10 +14,11 @@ export class CreateUserDto {
     name: string;
 
     @IsString()
-    @IsNotEmpty({ message: 'O Login é obrigatório' })
-    @MinLength(5, { message: 'O Login deve ter no mínimo 5 caracteres' })
-    @MaxLength(256, { message: 'O Login deve ter no máximo 256 caracteres' })
-    login: string;
+    @IsEmail({}, { message: 'O Email é inválido' })
+    @IsNotEmpty({ message: 'O Email é obrigatório' })
+    @MinLength(5, { message: 'O Email deve ter no mínimo 5 caracteres' })
+    @MaxLength(256, { message: 'O Email deve ter no máximo 256 caracteres' })
+    email: string;
 
     @IsString()
     @IsNotEmpty({ message: 'A Senha é obrigatória' })
