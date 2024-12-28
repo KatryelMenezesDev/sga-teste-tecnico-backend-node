@@ -61,16 +61,16 @@ export class UsersRepository {
         });
     }
 
-    async remove(id: string): Promise<string> {
+    async remove(id: string): Promise<{ message: string }> {
         await this.prisma.user.update({
             where: {
                 id,
+                delete_att: null,
             },
             data: {
                 delete_att: new Date(),
             },
         });
-
-        return `Usuário do id :${id} deletado com sucesso!`;
+        return { message: 'Usuário removido com sucesso' };
     }
 }
