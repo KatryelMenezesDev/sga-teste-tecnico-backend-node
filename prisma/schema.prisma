@@ -19,9 +19,12 @@ model Tutorial {
 }
 
 model User {
-  id       String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name     String     @db.VarChar(256)
-  login    String     @db.VarChar(256)
-  password String     @db.VarChar(256)
-  Tutorial Tutorial[]
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String     @db.VarChar(256)
+  login      String     @db.VarChar(256)
+  password   String     @db.VarChar(256)
+  creat_att  DateTime?  @default(now()) @db.Timestamp(6)
+  update_att DateTime?  @db.Timestamp(6)
+  delete_att DateTime?  @db.Timestamp(6)
+  Tutorial   Tutorial[]
 }
