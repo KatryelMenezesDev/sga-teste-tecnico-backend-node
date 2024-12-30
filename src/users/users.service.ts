@@ -4,13 +4,18 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './repositories/user.repository';
 import { NotFoundError } from '../common/errors/types/NotFoundError';
 import { UserEntity } from './entities/user.entity';
+import { BadRequestError } from 'src/common/errors/types/BadRequestError';
 
 @Injectable()
 export class UsersService {
     constructor(private readonly usersRepository: UsersRepository) {}
 
-    create(createUserDto: CreateUserDto) {
-        return this.usersRepository.create(createUserDto);
+    async create(createUserDto: CreateUserDto): Promise<UserEntity> {
+        const user = await this.usersRepository.create(createUserDto);
+        if (!user) {
+            throw new BadRequestError('Usuário já existe');
+        }
+        return user;
     }
 
     async findAll(): Promise<UserEntity[]> {

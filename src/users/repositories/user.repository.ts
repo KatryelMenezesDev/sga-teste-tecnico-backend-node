@@ -18,7 +18,7 @@ export class UsersRepository {
         });
 
         if (userAlreadyExists) {
-            throw new Error('Usuário já cadastrado');
+            return null;
         }
 
         return await this.prisma.user.create({
