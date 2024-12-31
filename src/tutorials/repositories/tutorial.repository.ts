@@ -4,13 +4,13 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTutorialDto } from '../dto/create-tutorial.dto';
 import { UpdateTutorialDto } from '../dto/update-tutorial.dto';
-import { UserEntity } from '../entities/user.entity';
+import { Tutorial } from '../entities/tutorial.entity';
 
 @Injectable()
 export class UsersRepository {
     constructor(private readonly prisma: PrismaService) {}
 
-    async create(createUserDto: CreateUserDto): Promise<UserEntity> {
+    async create(createUserDto: CreateTutorialDto): Promise<Tutorial> {
         const userAlreadyExists = await this.prisma.user.findFirst({
             where: {
                 email: createUserDto.email,
@@ -28,7 +28,7 @@ export class UsersRepository {
         });
     }
 
-    async findAll(): Promise<UserEntity[]> {
+    async findAll(): Promise<Tutorial[]> {
         return await this.prisma.user.findMany({
             where: {
                 delete_att: null,
@@ -36,7 +36,7 @@ export class UsersRepository {
         });
     }
 
-    async findOne(id: string): Promise<UserEntity> {
+    async findOne(id: string): Promise<Tutorial> {
         return await this.prisma.user.findUnique({
             where: {
                 id,
@@ -45,10 +45,7 @@ export class UsersRepository {
         });
     }
 
-    async update(
-        id: string,
-        updateUserDto: UpdateUserDto,
-    ): Promise<UserEntity> {
+    async update(id: string, updateUserDto: UpdateTutorialDto): Promise<Tutorial> {
         return await this.prisma.user.update({
             where: {
                 id,
