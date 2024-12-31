@@ -4,23 +4,23 @@ import { UpdateTutorialDto } from './dto/update-tutorial.dto';
 
 @Injectable()
 export class TutorialsService {
-  create(createTutorialDto: CreateTutorialDto) {
-    return 'This action adds a new tutorial';
-  }
+    create(createTutorialDto: CreateTutorialDto) {
+        return 'This action adds a new tutorial';
+    }
 
-  findAll() {
-    return `This action returns all tutorials`;
-  }
+    findAll() {
+        return `This action returns all tutorials`;
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tutorial`;
-  }
+    findOne(id: number) {
+        return `This action returns a #${id} tutorial`;
+    }
 
-  update(id: number, updateTutorialDto: UpdateTutorialDto) {
-    return `This action updates a #${id} tutorial`;
-  }
+    update(id: number, updateTutorialDto: UpdateTutorialDto) {
+        return `This action updates a #${id} tutorial`;
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} tutorial`;
-  }
+    remove(id: number) {
+        return `This action removes a #${id} tutorial`;
+    }
 }
