@@ -22,23 +22,21 @@ export class UsersService {
             authUserDto.email,
         );
 
-        if (user) {
-            const passwordMatch = await this.usersRepository.checkPassword(
-                authUserDto.password,
-                user,
-            );
-
-            if (passwordMatch) {
-                const jwtToken = await this.AuthService.createAccessToken(
-                    user.id,
-                );
-                return { name: user.name, jwtToken, email: user.email };
-            } else {
-                throw new BadRequestError('Senha inválida');
-            }
-        } else {
+        if (!user) {
             throw new NotFoundError('Usuário não encontrado');
         }
+
+        const passwordMatch = await this.usersRepository.checkPassword(
+            authUserDto.password,
+            user,
+        );
+
+        if (!passwordMatch) {
+            throw new BadRequestError('Senha inválida');
+        }
+
+        const jwtToken = await this.AuthService.createAccessToken(user.id);
+        return { name: user.name, jwtToken, email: user.email };
     }
 
     async create(createUserDto: CreateUserDto): Promise<UserEntity> {
