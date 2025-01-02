@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
+import * as bcrypt from 'bcrypt'; // Corrigido para importar corretamente o bcrypt
 
 @Injectable()
 export class UsersRepository {
@@ -14,6 +15,7 @@ export class UsersRepository {
         const userAlreadyExists = await this.prisma.user.findFirst({
             where: {
                 email: createUserDto.email,
+                delete_att: null,
             },
         });
 
@@ -21,9 +23,12 @@ export class UsersRepository {
             return null;
         }
 
+        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
         return await this.prisma.user.create({
             data: {
                 ...createUserDto,
+                password: hashedPassword,
             },
         });
     }
@@ -49,6 +54,13 @@ export class UsersRepository {
         id: string,
         updateUserDto: UpdateUserDto,
     ): Promise<UserEntity> {
+        if (updateUserDto.password) {
+            updateUserDto.password = await bcrypt.hash(
+                updateUserDto.password,
+                10,
+            );
+        }
+
         return await this.prisma.user.update({
             where: {
                 id,
