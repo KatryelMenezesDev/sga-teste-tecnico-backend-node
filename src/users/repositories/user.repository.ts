@@ -11,6 +11,19 @@ import * as bcrypt from 'bcrypt'; // Corrigido para importar corretamente o bcry
 export class UsersRepository {
     constructor(private readonly prisma: PrismaService) {}
 
+    async findUserByEmail(email: string): Promise<UserEntity> {
+        return await this.prisma.user.findFirst({
+            where: {
+                email,
+                delete_att: null,
+            },
+        });
+    }
+
+    async checkPassword(password: string, user: UserEntity): Promise<boolean> {
+        return await bcrypt.compare(password, user.password);
+    }
+
     async create(createUserDto: CreateUserDto): Promise<UserEntity> {
         const userAlreadyExists = await this.prisma.user.findFirst({
             where: {

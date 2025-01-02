@@ -10,6 +10,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthUserDto } from './dto/auth-user.dto';
 import { ApiForbiddenResponse, ApiResponse } from '@nestjs/swagger';
 
 @Controller('users')
@@ -41,5 +42,10 @@ export class UsersController {
     @Delete(':id')
     remove(@Param('id') id: string) {
         return this.usersService.remove(id);
+    }
+
+    @Post('auth')
+    auth(@Body() authUserDto: AuthUserDto) {
+        return this.usersService.auth(authUserDto);
     }
 }
